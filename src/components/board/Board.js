@@ -41,8 +41,15 @@ const Board = () => {
         contextRef.current.stroke()
     };
 
+    const clearCanvas = () => {
+        const c = canvasRef.current.getContext('2d');
+        c.fillStyle = 'white';
+        c.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    };
+
     return (
         <div>
+            <button onClick={clearCanvas}>[x] Clear</button>
             <canvas 
                 onMouseDown={startDrawing}
                 onMouseUp={finishDrawing}
