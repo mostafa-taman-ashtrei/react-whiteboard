@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {
+    Heading, Button, Stack, Box,
+} from '@chakra-ui/react';
 import Colors from './Colors';
 
 const Board = () => {
@@ -62,17 +65,23 @@ const Board = () => {
 
     return (
         <div>
-            <h1>Draw Something</h1>
+            <Heading textAlign="center" mb={6}>Pick a color & Draw something</Heading>
             <Colors canvasContext={canvasContext} />
 
-            <button type="button" onClick={clearCanvas}>[x] Clear</button>
-            <button type="button" onClick={saveCanvas}>Save</button>
-            <canvas
-                onMouseDown={startDrawing}
-                onMouseUp={finishDrawing}
-                onMouseMove={draw}
-                ref={canvasRef}
-            />
+            <Stack direction="row" spacing={4} align="center">
+                <Button type="button" onClick={clearCanvas}>[x] Clear</Button>
+                <Button type="button" onClick={saveCanvas}>Save</Button>
+            </Stack>
+
+            <Box border="2px" background="white" m="2">
+                <canvas
+                    onMouseDown={startDrawing}
+                    onMouseUp={finishDrawing}
+                    onMouseMove={draw}
+                    ref={canvasRef}
+                />
+            </Box>
+
         </div>
     );
 };
