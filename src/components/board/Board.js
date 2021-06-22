@@ -47,9 +47,22 @@ const Board = () => {
         c.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     };
 
+    const saveCanvas = () => {
+        const canvas = canvasRef.current;
+        const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = 'Canvas.jpeg';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+    };
+
     return (
         <div>
+            <h1>Draw Something</h1>
+
             <button onClick={clearCanvas}>[x] Clear</button>
+            <button onClick={saveCanvas}>Save</button>
             <canvas 
                 onMouseDown={startDrawing}
                 onMouseUp={finishDrawing}
