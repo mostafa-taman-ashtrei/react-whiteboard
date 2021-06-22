@@ -17,14 +17,14 @@ const Board = () => {
 
         const context = canvas.getContext('2d');
         SetCanvasContext(context);
-        context.scale(2,2);
+        context.scale(2, 2);
         context.lineCap = 'round';
         context.strokeStyle = 'blue';
         context.lineWidth = '5';
-        contextRef.current= context;
+        contextRef.current = context;
     }, []);
 
-    const startDrawing = ({nativeEvent}) => {
+    const startDrawing = ({ nativeEvent }) => {
         const { offsetX, offsetY } = nativeEvent;
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX, offsetY);
@@ -32,16 +32,16 @@ const Board = () => {
     };
 
     const finishDrawing = () => {
-        contextRef.current.closePath()
+        contextRef.current.closePath();
         setIsDrawing(false);
     };
 
-    const draw = ({nativeEvent}) => {
-        if(!isDrawing) return;
+    const draw = ({ nativeEvent }) => {
+        if (!isDrawing) return;
 
         const { offsetX, offsetY } = nativeEvent;
         contextRef.current.lineTo(offsetX, offsetY);
-        contextRef.current.stroke()
+        contextRef.current.stroke();
     };
 
     const clearCanvas = () => {
@@ -52,7 +52,7 @@ const Board = () => {
 
     const saveCanvas = () => {
         const canvas = canvasRef.current;
-        const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
+        const dataUrl = canvas.toDataURL('image/jpeg', 1.0);
         const downloadLink = document.createElement('a');
         downloadLink.href = dataUrl;
         downloadLink.download = 'Canvas.jpeg';
@@ -65,16 +65,16 @@ const Board = () => {
             <h1>Draw Something</h1>
             <Colors canvasContext={canvasContext} />
 
-            <button onClick={clearCanvas}>[x] Clear</button>
-            <button onClick={saveCanvas}>Save</button>
-            <canvas 
+            <button type="button" onClick={clearCanvas}>[x] Clear</button>
+            <button type="button" onClick={saveCanvas}>Save</button>
+            <canvas
                 onMouseDown={startDrawing}
                 onMouseUp={finishDrawing}
                 onMouseMove={draw}
                 ref={canvasRef}
             />
         </div>
-    )
-}
+    );
+};
 
 export default Board;
