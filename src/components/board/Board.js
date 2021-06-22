@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Colors from './Colors';
 
 const Board = () => {
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
+    const [canvasContext, SetCanvasContext] = useState();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -14,12 +16,13 @@ const Board = () => {
         canvas.style.height = `${window.innerHeight}px`;
 
         const context = canvas.getContext('2d');
+        SetCanvasContext(context);
         context.scale(2,2);
         context.lineCap = 'round';
         context.strokeStyle = 'blue';
         context.lineWidth = '5';
         contextRef.current= context;
-    }, [])
+    }, []);
 
     const startDrawing = ({nativeEvent}) => {
         const { offsetX, offsetY } = nativeEvent;
@@ -60,6 +63,7 @@ const Board = () => {
     return (
         <div>
             <h1>Draw Something</h1>
+            <Colors canvasContext={canvasContext} />
 
             <button onClick={clearCanvas}>[x] Clear</button>
             <button onClick={saveCanvas}>Save</button>
